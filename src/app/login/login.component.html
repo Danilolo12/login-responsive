@@ -1,0 +1,76 @@
+<!-- src/app/login/login.component.html -->
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
+      <h2 class="text-2xl font-bold text-gray-700 mb-6 text-center">
+        Iniciar Sesión
+      </h2>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Campo Email -->
+        <div class="mb-4">
+          <label for="email" class="block mb-1 font-semibold text-gray-600">Correo Electrónico</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="ejemplo@correo.com"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
+          />
+          <div class="mt-1 text-red-500 text-sm" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+            <div *ngIf="loginForm.get('email')?.errors?.['required']">
+              El correo es obligatorio.
+            </div>
+            <div *ngIf="loginForm.get('email')?.errors?.['email']">
+              Ingresa un correo válido.
+            </div>
+          </div>
+        </div>
+  
+        <!-- Campo Password -->
+        <div class="mb-4">
+          <label for="password" class="block mb-1 font-semibold text-gray-600">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Mínimo 6 caracteres"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
+          />
+          <div class="mt-1 text-red-500 text-sm" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+            <div *ngIf="loginForm.get('password')?.errors?.['required']">
+              La contraseña es obligatoria.
+            </div>
+            <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
+              Debe tener al menos 6 caracteres.
+            </div>
+          </div>
+        </div>
+  
+        <!-- Botón Ingresar -->
+        <button
+          type="submit"
+          [disabled]="loading"
+          class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300"
+        >
+          <!-- Spinner si está cargando -->
+          <span *ngIf="!loading">Ingresar</span>
+          <span *ngIf="loading">
+            <svg class="animate-spin h-5 w-5 inline-block mr-2" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10"
+                      stroke="currentColor" stroke-width="4" fill="none"></circle>
+              <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+            Cargando...
+          </span>
+        </button>
+      </form>
+  
+      <!-- Link opcional -->
+      <div class="mt-4 text-center">
+        <a href="#" class="text-sm text-blue-600 hover:underline">¿Olvidaste tu contraseña?</a>
+      </div>
+    </div>
+  </div>
+  
